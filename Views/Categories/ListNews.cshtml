@@ -1,0 +1,26 @@
+﻿@{
+    ApplicationDbContext ctx = Request.GetOwinContext().Get<ApplicationDbContext>();
+    Category cat = (ViewBag.Category as Category);
+    IEnumerable<News> news = ctx.News.Where(n => n.CategoryId == cat.Id).AsEnumerable();
+    ViewBag.Title = cat.Name;
+}
+
+
+<div class="row">
+    <h1>@cat.Name</h1>
+</div>
+
+<div class="col">
+    @foreach (News n in news)
+    {
+        <div class="row">
+            <div class="col-lg-2">
+                <a href="@Url.Action("Details/" + n.Id, "News")"><img src="@(n.CoverImage)" alt="@n.Title" width="128" /></a>
+            </div>
+            <div class="col-lg-10">
+                <h3>@Html.ActionLink(n.Title, "Details/" + n.Id ,  "News")</h3>
+                <p>@n.Description</p>
+            </div>
+        </div>
+    }
+</div>

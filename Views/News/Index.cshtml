@@ -1,0 +1,86 @@
+﻿@model IEnumerable<ltweb.Models.News>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <style>
+.btn {
+  border: none;
+  background-color: inherit;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+}
+</style>
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Region.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SubDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CoverImage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateTime)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Category.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Region.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.SubDescription)
+    </td>
+    
+    <td>
+        <img src="@item.CoverImage" width="95" />
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DateTime)
+    </td>
+    @*<td>
+        @Html.DisplayFor(modelItem => item.UserId)
+    </td>*@
+    <td>
+        <button class="btn">@Html.ActionLink("Edit", "Edit", new { id = item.Id })</button>
+        <button class="btn"> @Html.ActionLink("Details", "Details", new { id = item.Id })</button>
+        <button class="btn">@Html.ActionLink("Delete", "Delete", new { id = item.Id })</button>
+    </td>
+</tr>
+}
+
+</table>

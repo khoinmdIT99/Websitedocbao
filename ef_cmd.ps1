@@ -1,0 +1,1 @@
+﻿Update-Database -TargetMigration:Init -Force; Add-Migration AddCategoryAndNewsModels -Force; Update-Database -Verbose;

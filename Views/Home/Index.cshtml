@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ltweb.Models.News>
+@{ ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ApplicationDbContext Context = Request.GetOwinContext().Get<ApplicationDbContext>();
+
+    List<Category> categories = Context.Categories.ToList(); //(ViewBag.Categories as List<Category>);
+}
+<style>
+    .item1 {
+        grid-area: myArea;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-areas: 'myArea myArea myArea';
+        grid-gap: 2px;
+        background-color: #f5f5f5;
+        padding: 2px;
+    }
+
+        .grid-container > div {
+            background-color: white;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 20px;
+        }
+    .item1 {
+        grid-row-start: 1;
+        grid-row-end: 3;
+    }
+</style>
+
+
+<h2>Today's News</h2>
+<div class="grid-container">
+    
+    @foreach (News item in Model)
+    {
+
+        <div class="item1">
+            <a href="@Url.Action("Details/" + item.Id, "News")">
+                <img src="@(item.CoverImage)" alt="@item.Title" width="200">
+            </a>
+            <h1> @Html.ActionLink(item.Title, "Details", "News", new { Id = item.Id }, new { })</h1>
+            @if(item.CategoryId.HasValue)
+            {
+                <p style="font-size:20px">  @Html.ActionLink(item.Category.Name, "GetNews", "Categories", new { Id = item.CategoryId }, new { })</p>
+            }
+            <p>@item.Description</p>
+        </div>
+        <div class="item2">
+            <a href="@Url.Action("Details/" + item.Id, "News")">
+                <img src="@(item.CoverImage)" alt="@item.Title" width="200">
+            </a>
+            <h1> @Html.ActionLink(item.Title, "Details", "News", new { Id = item.Id }, new { })</h1>
+            @if (item.CategoryId.HasValue)
+            {
+                <p style="font-size:20px">  @Html.ActionLink(item.Category.Name, "GetNews", "Categories", new { Id = item.CategoryId }, new { })</p>
+            }
+            <p>@item.Description</p>
+        </div>
+
+    }
+</div>
+
